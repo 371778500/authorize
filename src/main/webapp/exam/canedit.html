@@ -1,0 +1,172 @@
+<!-- 多选题添加下一题按钮 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/release/canedit1000.css?v=1" />
+    <script type="text/javascript" src="assets/js/bridge.js"></script>
+    <script type="text/javascript" src="assets/js/zepto.js"></script>
+    <script type="text/javascript" src="assets/js/zepto.md5.js"></script>
+    <script type="text/javascript" src="assets/js/response.js"></script>
+    <script type="text/javascript" src="assets/js/fastclick.js"></script>
+    <title>友学习</title>
+    <script type="text/javascript">
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener('WebViewJavascriptBridgeReady', function() {
+                callback(WebViewJavascriptBridge)
+            }, false)
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="close hidden" onclick="window.close()"></div>
+        <div class="back hidden" onclick="history.back()"></div>
+        <div class="htitle">友学习</div>
+    </header>
+    <div id="main">
+        <!-- 有分类选项的首页 20170428 -->
+        <div class="home_page ">
+            <div class="home_page_img">
+                <img src="./assets/img/type/title@2x.png" alt="" srcset="./assets/img/type/title@3x.png">
+            </div>
+            <div class="home_category_page">
+                <!--  <div class="category " type="1">
+                <span class="category_start">财务云</span>-->
+            </div>
+        </div>
+        <!--答题倒计时-->
+        <div class="count_down_page hidden">
+            <div class="time_count_down"></div>
+            <div class="tip_info">
+            </div>
+        </div>
+        <!--试题页面-->
+        <div class="exam_page hidden">
+            <!--答题计时无用-->
+            <div class="paper_wrap">
+                <div class="count_title">
+                    <div class="answer_counts_title">
+                        <div class="answer_counts">
+                            <span class="answer_counts_left answer_multi">(多选题)</span>
+                            <span class="answer_counts_left">答题数</span>
+                            <span class="answer_counts_right"><i>8</i></span>
+                        </div>
+                        <div class="paper_title">
+                            <span class="title_content">8.用友企业的核心价值观是什么？</span>
+                        </div>
+                    </div>
+                    <div class="paper_content">
+                        <!-- 
+                        <div class="options">
+                            <input type="checkbox" name="option" id="d" />
+                            <label for="d"></label>
+                            <span>俄罗斯</span>
+                        </div> -->
+                        <!-- <div class="options">
+                            <input type="checkbox" id="a" name="options" />
+                            <label class="normal" for="a"></label>
+                            <span>A</span>
+                        </div> -->
+                        <div class="options">
+                            <label for="a">
+                                <input type="checkbox" name="options" id="a">
+                                <i>✓</i>
+                            </label>
+                            <span class="text">荣耀币荣耀币荣耀币</span>
+                        </div>
+                         <div class="options">
+                            <label for="b">
+                                <input type="checkbox" name="options" id="b">
+                                <i>✓</i>
+                            </label>
+                            <span class="text">荣耀币荣耀币荣耀币</span>
+                        </div>
+                         <div class="options">
+                            <label for="c">
+                                <input type="checkbox" name="options" id="c">
+                                <i>✓</i>
+                            </label>
+                            <span class="text">荣耀币荣耀币荣耀币</span>
+                        </div>
+                         <div class="options">
+                            <label for="d">
+                                <input type="checkbox" name="options" id="d">
+                                <i>✓</i>
+                            </label>
+                            <span class="text">荣耀币荣耀币荣耀币</span>
+                        </div>
+                    </div>
+                    <div class="exam_page_info hidden">
+                        <h3 class='noquestion'>试题库为空</h3>
+                    </div>
+                    <div class="papaer_pass_btn hidden" style="background:url('./assets/img/answerConfirm@2x.png') no-repeat center center; height:1.34rem;margin-top:1rem;">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="page_turning_eff"></div> -->
+            <!--遮罩相关-->
+            <div class="model_layer"></div>
+            <div class="model_content">
+                <div class="answer_right_info">答案：
+                    <span class="answerRight">ABC</span>
+                </div>
+                <div class="answer_pic"></div>
+                <div class="answer_res_info">再接再厉哦!</div>
+            </div>
+        </div>
+        <!--考试通过(首次/非首次考试)-->
+        <div class="exam_pass_page hidden">
+            <div class="pass_page_wrap">
+                <div class="this_scores">
+                    恭喜你全部答对啦！金豆随后发放！
+                </div>
+                <img class="logoImg" src="./assets/img/title_end@2x.png" srcset="./assets/img/title_end@3x.png">
+            </div>
+            <div class="scores_opt">
+                <div class="challenge_again">再挑战一次</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var fn = function(YonYouJSBridge) {
+
+        YonYouJSBridge.init(function(message, responseCallback) {}); //初始化,(页面中只能初始化一次，不可多次)            
+
+        //分享
+        function share() {
+            var title = 'test啊',
+                content = 'a后端b',
+                data = '{"function":"share","parameters":{"content":"' + content + '","title":"' + title + '","url":"http://upesn.com","imgUrl":"http://test.front.upesn.com/esn/images/setting/logo-30.png"}}';
+            YonYouJSBridge.send(data, function(responseData) {});
+        }
+
+
+        function hiddenMenu() {
+            // body...
+
+            var data = '{"function":"hiddenMenu","parameters":{"nav_color":"#fc5b3e"}}';
+            YonYouJSBridge.send(data, function(responseData) {});
+        }
+
+        hiddenMenu();
+
+    };
+
+    connectWebViewJavascriptBridge(fn);
+    </script>
+    <script type="text/javascript" src="assets/release/canedit1000.js?v=1"></script>
+</body>
+
+</html>

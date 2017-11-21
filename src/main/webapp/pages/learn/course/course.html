@@ -1,0 +1,322 @@
+<!-- 列表区域  -->
+<div class="u-container-fluid u-widget-bg padding-0">
+	<div class="u-widget margin-0">
+		<div class="u-widget-body">
+			<div class="u-row margin-left-0 margin-right-0">
+				<!--树表  -->
+				<div class="u-col-md-3 lefttree" id="treeT">
+					<div class=""
+						style="line-height: 30px; float: left; margin-left: 15px;">
+						<span>课程分类</span>
+					</div>
+					<div class=" u-button-group group-spec margin-left-15"
+						style="margin-bottom: 4px; float: right;">
+						<!--兼容ie9以下enter问题-->
+						<!--[if lt IE 10]><button style="display:block;width:1px;height:1px;border:none;">1</button><![endif]-->
+					  <button class="u-button u-button-floating" id="addinstitBtn" data-bind="click: event.addCouresTypeClick">
+                            <i class="uf uf-plus"></i>
+                            <div class="ie8-bg">
+                            	<img src="./static/plus.png" alt="..." style="width:60%;height:60%;">
+                            </div>
+                        </button>
+                        <button class="u-button u-button-floating " id="editinstitBtn" data-bind="click: event.editCouresTypeClick">
+                            <i class="uf uf-pencil"></i>
+                            <div class="ie8-bg">
+                            	<img src="./static/pencil.png" alt="..." style="width:60%;height:60%;">
+                            </div>
+                        </button>
+                        <button class="u-button u-button-floating del-bg" id="delinstitBtn" data-bind="click: event.delCouresTypeClick">
+                            <i class="uf uf-del"></i>
+                            <div class="ie8-bg">
+                            	<img src="./static/del.png" alt="..." style="width:60%;height:60%;">
+                            </div>
+                        </button> 
+						<!--课程分类编辑对话框-->
+						<div id="dialog_content_instit" style="display: none;">
+							<div class="u-msg-title">
+								<h4>新增课程分类</h4>
+							</div>
+							<HR width="100%" color=#F8F9FB SIZE=3 align="center" />
+							<div class="u-msg-content add-depart">
+								<div class="u-form">
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程分类编码</label>
+										</div>
+										<input type="text" id="courseTypeCode"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseTypeDataNew","field":"courseTypeCode"}'
+											placeholder="请输入课程分类编码">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程分类名称</label>
+										</div>
+										<input type="text" id="institname"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseTypeDataNew","field":"courseTypeName"}'
+											placeholder="请输入课程分类名称">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<label class="u-col-md-3 control-label">上级</label> <input
+											type="text" id="parentname" class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseTypeDataNew","field":"pkCourseTypeParentName"}'
+											placeholder="上级" disabled="disabled">
+									</div>
+									<div class="u-col-md-12 form-group" style="display: none">
+										<label class="u-col-md-3 control-label">父ID</label> <input
+											type="text" id="parentid" class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseTypeDataNew","field":"pkCourseTypeParentid"}'
+											placeholder="请输入父ID">
+									</div>
+								</div>
+							</div>
+							<div class="u-msg-footer">
+								<div class="pull-right">
+									<button id="canceltree" class="u-button editCancel raised back"
+										data-bind="click: event.canceCouresTypeClick">
+										取消<span class="u-button-container"><span
+											class="u-ripple"></span></span>
+									</button>
+
+									<button id="savetree"
+										class="u-button raised u-button-primary margin-right-10"
+										data-bind="click: event.saveCouresTypeClick">
+										保存<span class="u-button-container"><span
+											class="u-ripple"></span></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<HR class="hide" width="100%" color=#F8F9FB SIZE=30 align="center" />
+					</div>
+					<!--tree-->
+					<div class="u-col-md-3" id="tree2Around" style="width: 100%;">
+						<div id="tree2" class="ztree"
+							u-meta='{"id":"tree2","data":"courseTypeData","type":"tree","idField":"pkCourseType","pidField":"pkCourseTypeParentid","nameField":"courseTypeName","setting":"treeSetting"}'>
+						</div>
+					</div>
+				</div>
+
+				<!--课程管理-->
+				<div class="u-col-md-9 padding-left-0 padding-right-0"
+					style="border-left: 1px solid #cecece;">
+					<div class="infoPanel" id="infoPanel"></div>
+					<div class="treefrom">
+						<div class="ec-search u-col-md-12 u-col-sm-12  ">
+							<div class="u-button-group">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="add_course"
+									value="新增课程" style="" data-bind="click: event.addCourseClick">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="edit_course"
+									value="修改课程" style="" data-bind="click: event.editCourseClick">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="del_course"
+									value="删除课程" style="" data-bind="click: event.delCourseClick">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="isuse_course"
+									value="启用课程" style="" data-bind="click: event.isUseCourseClick">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="stop_course"
+									value="停用课程" style="" data-bind="click: event.stopCourseClick">
+								<input type="button"
+									class="u-button u-button-primary u-buttom-sm" id="stop_course"
+									value="添加章节" style="" data-bind="click: event.stopCourseClick">
+							</div>
+							<div id="searchdiv"
+								class="u-input-group u-has-feedback pull-right input_enter">
+								<input type="text" class="u-form-control sm " id="search"
+									placeholder="课程名"> <span
+									class="u-form-control-feedback uf uf-search-light-2"
+									id="searchBtn" data-bind="click: event.searchClick"></span>
+							</div>
+						</div>
+
+						<!--课程table-->
+						<div class="main-container padding-0 contacts-container">
+							<div class="hr-table ">
+								<div class="u-table b-table width-full"
+									u-meta='{"id":"gridaddress","type":"grid","multiSelect":"true","data":"courseData","columnWidth":"150px"}'>
+									<div
+										options='{"field":"courseCode","title":"课程编码","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"courseName","title":"课程名","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"courseLecturer","title":"课程讲师","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"courseClickNumber","title":"课程点击数","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"courseLikeNumber","title":"课程点赞数","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"value":"111","field":"isuse","title":"是否启用","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"coursePublishTime","title":"课程发布时间","dataType":"String","editType":"string"}'></div>
+									<div
+										options='{"field":"coursePublisher","title":"课程发布人","dataType":"String","editType":"string"}'></div>
+								</div>
+							</div>
+							<div id='pagination'
+								class='pagination u-pagination pagination-sm'></div>
+						</div>
+
+						<!--课程编辑对话框-->
+						<div id="dialog_content_course" style="display: none;">
+							<div class="u-msg-title">
+								<h4>新增课程</h4>
+							</div>
+							<HR width="100%" color=#F8F9FB SIZE=3 align="center" />
+							<div class="u-msg-content add-depart">
+								<div class="u-form">
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程编码</label>
+										</div>
+										<input type="text" id="courseCode"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseCode"}'
+											placeholder="请输入课程编码">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程名称</label>
+										</div>
+										<input type="text" id="courseName"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseName"}'
+											placeholder="请输入课程名称">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程讲师</label>
+										</div>
+										<input type="text" id="courseLecturer"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseLecturer"}'
+											placeholder="课程讲师">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程时长</label>
+										</div>
+										<input type="text" id="courseLecturer"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseDuraion"}'
+											placeholder="单位：分钟">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程图标</label>
+										</div>
+										<input type="text" id="courseIconUrl"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseIconUrl"}'
+											data-bind="click: event.openupload" placeholder="点击上传">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程章节</label>
+										</div>
+										<input type="text" id="chapterUrl"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"chapterUrl"}'
+											data-bind="click: event.openupload" placeholder="点击上传">
+									</div>
+									<div class="u-col-md-12 form-group">
+										<div class="u-col-md-3 control-label">
+											<label style="color: red;">*</label> <label>课程视频</label>
+										</div>
+										<input type="text" id="courseUrl"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseUrl"}'
+											data-bind="click: event.openupload" placeholder="点击上传">
+									</div>
+									<div class="u-col-md-12 form-group" style="">
+										<label class="u-col-md-3 control-label">课程发布人</label> <input
+											type="text" id="coursePublisher"
+											class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"coursePublisher"}'
+											placeholder="请输入课程发布人">
+									</div>
+									<div class="u-col-md-12 form-group" style="">
+										<label class="u-col-md-3 control-label">课程介绍</label> <input
+											type="text" id="parentid" class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"courseIntroduction"}'
+											placeholder="请输入课程简介">
+									</div>
+									<div class="u-col-md-12 form-group" style="display: none">
+										<label class="u-col-md-3 control-label">课程分类id</label> <input
+											type="text" id="parentid" class="u-col-md-9 u-form-control"
+											u-meta='{"type":"string","data":"courseDataNew","field":"pkCourseType"}'
+											placeholder="课程分类id">
+									</div>
+								</div>
+							</div>
+							<div class="u-msg-footer">
+								<div class="pull-right">
+									<button id="canceltree" class="u-button editCancel raised back"
+										data-bind="click: event.canceCouresTypeClick">
+										取消<span class="u-button-container"><span
+											class="u-ripple"></span></span>
+									</button>
+
+									<button id="savetree"
+										class="u-button raised u-button-primary margin-right-10"
+										data-bind="click: event.saveCourseClick">
+										保存 <span class="u-button-container"><span
+											class="u-ripple"></span></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!--上传文件的模态框-->
+<div id="dialog_content_upload" style="display: none;">
+	<div class="u-msg-title">
+		<h4>上传文件</h4>
+	</div>
+	<HR width="100%" color=#F8F9FB SIZE=3 align="center" />
+	<div class="u-msg-content add-depart">
+		<div class="table-container" style="height: 100%">
+			<table class="u-table" style="width: 100%">
+				<thead>
+					<tr>
+						<th>文件名称</th>
+						<th>上传进度</th>
+						<th>删除</th>
+					</tr>
+				</thead>
+				<tbody id="upload_files">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="u-msg-footer">
+		<div class="pull-right">
+			<button id="browse" class="u-button raised u-button-primary ">
+				选择文件...<span class="u-button-container"><span
+					class="u-ripple"></span></span>
+			</button>
+			<!-- <button id="upload-btn" class="u-button raised u-button-primary margin-right-10">开始上传<span class="u-button-container"><span class="u-ripple"></span></span></button> -->
+			<button id="close-btn"
+				class="u-button editCancel raised back margin-right-10"
+				data-bind="click: event.canceupload">
+				关闭<span class="u-button-container"><span class="u-ripple"></span></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	removefile = function(id) {
+		$("#" + id).remove();
+	}
+</script>

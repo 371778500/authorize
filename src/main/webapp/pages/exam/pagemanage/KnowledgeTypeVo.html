@@ -1,0 +1,359 @@
+<!-- 列表区域  -->
+<div class="u-container-fluid u-widget-bg padding-0">
+    <div class="u-widget margin-0">
+        <div class="u-widget-body">
+            <div class="u-row margin-left-0 margin-right-0">
+                <!--树表  -->
+                <div class="u-col-md-3 lefttree" id="treeT">
+                    <div class="" style=" line-height: 30px;float: left;margin-left:15px;">
+                        <span>知识类别明细</span>
+                    </div>
+                    <div class=" u-button-group group-spec margin-left-15" style="margin-bottom:4px;float:right;">
+                        <button class="u-button u-button-floating " data-bind="click: event.addinstitClick">
+                            <i class="uf uf-plus"></i>
+                        </button>
+                        <button class="u-button u-button-floating" data-bind="click: event.editinstitClick">
+                            <i class="uf uf-pencil"></i>
+                        </button>
+                        <button class="u-button u-button-floating" data-bind="click: event.delinstitClick">
+                            <i class="uf uf-del"></i>
+                        </button>
+                        <!--instit编辑对话框-->
+                        <div id="dialog_content_instit" style="display:none;">
+                            <div class="u-msg-title">
+                                <h4>新增知识类别明细</h4>
+                            </div>
+                            <HR width="100%" color=#F8F9FB SIZE=3 align="center"/>
+                            <div class="u-msg-content add-depart">
+                                <div class="u-form">
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label style="color: red;">*</label><label>知识类别编码</label>
+                                        </div>
+                                        <input type="text" id="knowlege_type_code"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"KnowledgeTypeVodatanew","field":"knowlege_type_code"}'
+                                               placeholder="">
+                                    </div>
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label style="color: red;">*</label><label>知识类别名称</label>
+                                        </div>
+                                        <input type="text" id="knowlege_type_name"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"KnowledgeTypeVodatanew","field":"knowlege_type_name"}'
+                                               placeholder="">
+                                    </div>
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>知识类别父类型</label>
+                                        </div>
+                                        <input type="text" id="pk_knowledge_type_parentid_name"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"KnowledgeTypeVodatanew","field":"pk_knowledge_type_parentid_name"}'
+                                               placeholder="父类型" disabled="disabled">
+                                    </div>
+                                    
+									<div class="u-col-md-12 form-group" style="display: none">
+                                        <label class="u-col-md-3 control-label">父ID</label>
+                                        <input type="text" id="pk_knowledge_type_parentid"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"KnowledgeTypeVodatanew","field":"pk_knowledge_type_parentid"}'
+                                               placeholder="请输入父ID">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-msg-footer">
+                                <div class="pull-right">
+                                    <button id="canceltree" class="u-button editCancel raised back"
+                                            data-bind="click: event.cancelinstitClick">取消<span
+                                            class="u-button-container"><span
+                                            class="u-ripple"></span></span>
+                                    </button>
+                                    
+                                    <button id="savetree" class="u-button raised u-button-primary margin-right-10"
+                                            data-bind="click: event.saveinstitClick">
+                                                                                                                                                        保存<span class="u-button-container"><span class="u-ripple"></span></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <HR class="hide" width="100%" color=#F8F9FB SIZE=30 align="center"/>
+                    </div>
+                    <!--tree-->
+                    <div class="u-col-md-3" id="tree2Around" style="width:100%;">                   
+                        <div id="tree2" class="ztree"
+                             u-meta='{"id":"tree2","data":"KnowledgeTypeVodata","type":"tree","idField":"pk_exam_knowledge_type","pidField":"pk_knowledge_type_parentid","nameField":"knowlege_type_name","setting":"treeSetting"}'>
+                        </div>
+                  
+                    </div>
+                </div>
+
+                <!--右表-->
+                <div class="u-col-md-9 padding-left-0 padding-right-0" style="border-left:1px solid #cecece;">
+                    <div class="infoPanel" id="infoPanel"></div>
+                    <div class="treefrom">
+                        <div class="ec-search u-col-md-12 u-col-sm-12  ">
+                            <div class="u-button-group">
+                                <input type="button" class="u-button u-button-primary u-buttom-sm"
+                                        id="add_man" value="新增"
+                                        style="" data-bind="click: event.addManClick">
+                                <input type="button" class="u-button u-button-primary u-buttom-sm"
+                                        id="edit_man" value="编辑"
+                                        style="" data-bind="click: event.editManClick">
+                                <input type="button" class="u-button u-button-primary u-buttom-sm"
+                                        id="del_man" value="删除"
+                                        style="" data-bind="click: event.delManClick">
+                                <input type="button" class="u-button u-button-primary u-buttom-sm"
+                                        id="upload_man" value="导入试卷"
+                                        style="" data-bind="click: event.uploadManClick">
+                            </div>
+                            <!--右表编辑对话框-->
+                            <div id="dialog_content_man" class="modal-dialog" style="display:none;">
+                                <div class="u-msg-title">
+                                    <h4>新增</h4>
+                                </div>
+                                <HR width="100%" color=#F8F9FB SIZE=3 align="center"/>
+                                <div class="u-msg-content add-man">
+                                    <div class="u-form" id="add-form">
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>试卷编码</label>
+                                        </div>
+                                        <input type="text" id="paper_code"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"paper_code"}'
+                                               placeholder="">
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>试卷</label>
+                                        </div>
+                                        <input type="text" id="paper_name"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"paper_name"}'
+                                               placeholder="">
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>考试有效开始时间</label>
+                                        </div> 
+                                         <div class="u-col-md-9 u-form-control" 
+                                         u-meta='{"type":"u-date","data":"PaperMainVodatanew","field":"begin_time"}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <input type="text" id="begin_time" class="u-form-control" placeholder="" />
+		                                        </div>
+		                                </div> 
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>考试有效结束时间</label>
+                                        </div>
+                                        <div class="u-col-md-9 u-form-control" 
+                                         u-meta='{"type":"u-date","data":"PaperMainVodatanew","field":"end_time"}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <input type="text" id="end_time" class="u-form-control" placeholder="" />
+		                                        </div>
+		                                </div> 
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>考试时长</label>
+                                        </div>
+                                        <input type="text" id="exam_time"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"exam_time"}'
+                                               placeholder="">
+                                    </div>
+                                    
+                                    <div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>总分数</label>
+                                        </div>
+                                        <input type="text" id="total_score"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"total_score"}'
+                                               placeholder="">
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>通过分数</label>
+                                        </div>
+                                        <input type="text" id="pass_score"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"pass_score"}'
+                                               placeholder="">
+                                    </div>
+
+                            		<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>是否启用</label>                                            
+                                        </div>            
+                                         <div class="u-col-md-9 u-form-control u-combo" id="combousing"
+                                         u-meta='{"type":"u-combobox","datasource":"PaperMainVo_using_status","data":"PaperMainVodatanew","field":"using_status","onlySelect":true}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <span class="u-form-control-feedback fa fa-angle-down"
+		                                                  data-role="combo-button"></span>
+		                                            <input class="u-form-control" readonly />
+		                                        </div>
+		                                </div>                        
+                                    </div> 
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>可考次数</label>
+                                        </div>
+                                        <input type="text" id="examnum"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"examnum"}'
+                                               placeholder="">
+                                    </div>
+
+									<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>上传者</label>
+                                        </div>
+                                        <input type="text" id="uploader"
+                                               class="u-col-md-9 u-form-control"
+                                               u-meta='{"type":"string","data":"PaperMainVodatanew","field":"uploader"}'
+                                               placeholder="">
+                                    </div>
+
+									<!-- <div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>上传时间</label>
+                                        </div>
+                                        <div class="u-col-md-9 u-form-control" 
+                                         u-meta='{"type":"u-date","data":"PaperMainVodatanew","field":"upload_date"}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <input type="text" id="upload_date" class="u-form-control" placeholder="" />
+		                                        </div>
+		                                </div> 
+                                    </div> -->
+
+                            		<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>是否查看答案</label>                                            
+                                        </div>            
+                                         <div class="u-col-md-9 u-form-control u-combo" id="combocheckanswer" 
+                                         u-meta='{"type":"u-combobox","datasource":"PaperMainVo_checkanswer_status","data":"PaperMainVodatanew","field":"checkanswer_status","onlySelect":true}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <span class="u-form-control-feedback fa fa-angle-down"
+		                                                  data-role="combo-button"></span>
+		                                            <input class="u-form-control" readonly />
+		                                        </div>
+		                                </div>                        
+                                    </div> 
+
+                            		<div class="u-col-md-12 form-group">
+                                        <div class="u-col-md-3 control-label">
+                                            <label>是否查看分数</label>                                            
+                                        </div>            
+                                         <div class="u-col-md-9 u-form-control u-combo" id="combocheckscore"
+                                         u-meta='{"type":"u-combobox","datasource":"PaperMainVo_checkscore_status","data":"PaperMainVodatanew","field":"checkscore_status","onlySelect":true}'>
+		                                        <div class="u-input-group u-has-feedback">
+		                                            <span class="u-form-control-feedback fa fa-angle-down"
+		                                                  data-role="combo-button"></span>
+		                                            <input class="u-form-control" readonly />
+		                                        </div>
+		                                </div>                        
+                                    </div> 
+                                    </div>
+                                </div>
+                                <div class="u-msg-footer">
+                                    <button id="saveman" class="u-msg-ok u-button u-button-primary"
+                                            data-bind="click: event.saveManClick">保存
+                                        <span class="u-button-container"></span>
+                                    </button>
+                                    <button id="cancelman" class="u-msg-cancel u-button u-button-white"
+                                            data-bind="click: event.cancelManClick">取消
+                                        <span class="u-button-container"></span>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            <div id="searchdiv" class="u-input-group u-has-feedback pull-right input_enter">
+                                <input type="text" class="u-form-control sm " id="search"
+                                       placeholder="试卷名">
+                                <span class="u-form-control-feedback uf uf-search-light-2" id="searchBtn"
+                                      data-bind="click: event.searchClick"></span>
+                            </div>
+                        </div>
+
+
+                        <!--右表-->
+                        <div class="main-container padding-0 contacts-container">
+                            <div class="hr-table ">
+                                <div class="u-table b-table width-full"
+                                     u-meta='{"id":"gridtable","type":"grid","multiSelect":"true","data":"PaperMainVodata","columnWidth":"150px"}'>
+                                     
+                                        <div options='{"field":"paper_code","dataType":"String","title":"试卷编码","editType":"string"}'></div>
+                                        <div options='{"field":"paper_name","dataType":"String","title":"试卷名","editType":"string"}'></div>
+                                        <div options='{"field":"begin_time","dataType":"u-date","title":"考试有效开始时间","editType":"u-date"}'></div>
+                                        <div options='{"field":"end_time","dataType":"u-date","title":"考试有效结束时间","editType":"u-date"}'></div>
+                                        <div options='{"field":"exam_time","dataType":"String","title":"考试时长","editType":"string"}'></div>
+                                        <div options='{"field":"total_score","dataType":"String","title":"总分数","editType":"string"}'></div>
+                                        <div options='{"field":"pass_score","dataType":"String","title":"通过分数","editType":"string"}'></div>
+										<div options='{"field":"using_status","dataType":"String","title":"是否启用","editType":"combo","editOptions":{"id":"using_statuses","type":"combo","datasource":"PaperMainVo_using_status"},"renderType":"comboRender"}'></div>
+                                        <div options='{"field":"examnum","dataType":"String","title":"可考次数","editType":"string"}'></div>
+                                        <div options='{"field":"uploader","dataType":"String","title":"上传者","editType":"string"}'></div>
+                                        <div options='{"field":"upload_date","dataType":"u-date","title":"上传时间","editType":"u-date"}'></div>
+										<div options='{"field":"checkanswer_status","dataType":"String","title":"是否查看答案","editType":"combo","editOptions":{"id":"checkanswer_statuses","type":"combo","datasource":"PaperMainVo_checkanswer_status"},"renderType":"comboRender"}'></div>
+										<div options='{"field":"checkscore_status","dataType":"String","title":"是否查看分数","editType":"combo","editOptions":{"id":"checkscore_statuses","type":"combo","datasource":"PaperMainVo_checkscore_status"},"renderType":"comboRender"}'></div>
+                                </div>
+                            </div>
+                            <div id='pagination' class='pagination u-pagination pagination-sm'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--上传文件的模态框-->
+<div id="dialog_content_upload" style="display: none;">
+	<div class="u-msg-title">
+		<h4>上传文件</h4>
+	</div>
+	<HR width="100%" color=#F8F9FB SIZE=3 align="center" />
+	<div class="u-msg-content add-depart">
+		<div class="table-container" style="height: 100%">
+			<table class="u-table" style="width: 100%">
+				<thead>
+					<tr>
+						<th>文件名称</th>
+						<th>上传进度</th>
+						<th>删除</th>
+					</tr>
+				</thead>
+				<tbody id="upload_files">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="u-msg-footer">
+		<div class="pull-right">
+			<button id="browse" class="u-button raised u-button-primary ">
+				选择文件...<span class="u-button-container"><span
+					class="u-ripple"></span></span>
+			</button>
+			<button id="upload-btn" class="u-button raised u-button-primary margin-right-10">开始上传<span class="u-button-container"><span class="u-ripple"></span></span></button>
+			<button id="close-btn"
+				class="u-button editCancel raised back margin-right-10"
+				data-bind="click: event.canceupload">
+				关闭<span class="u-button-container"><span class="u-ripple"></span></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+

@@ -1,0 +1,164 @@
+<div class="u-mdlayout" id="user-mdlayout">
+    <div class="u-mdlayout-btn u-row">
+        <div id="user_list_button_2" class="u-col-4 user-actions user_list_button_2 ">
+            <div class=" u-button-group margin-0 padding-0">
+            	<!--兼容ie9以下enter问题-->
+            	<!--[if lt IE 10]><button style="display:block;width:1px;height:1px;border:none;">1</button><![endif]-->
+                <button class="u-button u-button-primary u-button-sm " id="addBtn" data-bind="click: event.addClick">增加</button>
+                <button class="u-button u-button-primary u-button-sm " id="editBtn" data-bind="click: event.editClick">编辑</button>
+                <button class="u-button u-button-primary u-button-sm " id="delBtn" data-bind="click: event.delRow">删除</button>
+            </div>
+        </div>
+        <div class="u-col-4  center-title">
+            <span>用户管理</span>
+        </div>
+    </div>
+    <div class="u-mdlayout-btn u-row hide ">
+        <div id="user_card_button">
+            <div class="u-col-4  ufBack padding-bottom-5" data-bind="click:event.goBack">
+                <a id="backBtn"><i class="uf uf-aaleft"></i>返回</a>
+            </div>
+            <div class="u-col-4 padding-bottom-5 " style="text-align:center;">
+                <span>用户管理</span>
+            </div>
+            <div class="u-col-4 padding-bottom-5">
+                <button type="button" class=" u-button u-button-primary u-button-sm" style="float:right;" id="saveBtn"
+                        data-bind="click:event.saveClick">保存
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class=" form-search " style="z-index:0;">
+        <div class="u-panel-heading u-collapse-updown " u-data-toggle="collapse" href="#condition-row-user">
+            <span class="u-panel-title padding-5 padding-left-15  ">快速查询
+            <span class=" u-link u-right u-input-label sm" id="condition-toggle-user">
+                 <span>展开</span>                
+                 <i class="uf uf-arrow-down"></i>             
+             </span>
+             </span>
+        </div>
+        <div class="u-row u-panel-body collapse" id="condition-row-user">
+            <div class="u-col-8 u-col-sm-12">
+                <div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>用户编码</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 ">
+                    <input class="u-form-control sm input_search search-enter" id="usercode" name="usercode">
+                </div>
+                <div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>用户名称</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 ">
+                    <input class="u-form-control sm input_search search-enter" name="username" id="username"/>
+                </div>
+            </div>
+            <div class="u-col-4 u-col-sm-12">
+                <div class=" padding-top-2 ">
+                    <button class="u-button u-button-primary raised gray-btn u-button-pa margin-right-20"
+                            id="user-action-search" data-bind="click: event.search">搜索
+                    </button>
+                    <button class="u-button u-button-primary  raised gray-btn u-button-pa " id="user-action-cleanSearch"
+                            data-bind="click: event.cleanSearch">清空
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="u-mdlayout-detail width-full">
+        <!-- list -->
+        <div class="u-mdlayout-page u-navlayout-fixed-header current" id="list">
+            <div class="u-mdlayout-page-section">
+                <div class="user-datagrid" style="">
+                    <div class="table-container" style="height:100%">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th name="userCheckbox" style="display: block;border-top:1px solid transparent;">
+                                    <label class="margin-top-5 u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: userDa.toggleAllSelect.bind(userDa), css:{'is-checked': userDa.allSelected()}">
+                                        <input id="checkInput" type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </th>
+                                <th>用户编码</th>
+                                <th>姓名</th>
+                                <th>账号</th>
+                                <th>是否启用</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:userDa.rows(),as:'row', afterAdd: event.afterAdd}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.rowClick">
+                                <td name="userCheckbox" class="checkbox1">
+                                    <label class="u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+                                        <input type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </td>
+                                <td data-bind="text: row.ref('usercode')"></td>
+                                <td data-bind="text: row.ref('name')"></td>
+                                <td data-bind="text: row.ref('username')"></td>
+                                <td data-bind="text: row.ref('enable')"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div id="user-no-data-tip" class='no-data-tip hide'>无数据</div>
+                    </div>
+                    <div class ="pagination-par">
+                    	<div id='pagination' class='u-pagination pagination-sm '></div>
+                    </div>
+                </div>
+                <!-- user role  -->
+                <div class="user-datagrid " style="padding:15px 0px 15px 0px;">
+                    <div class="table-container">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                            	<th name="userCheckbox" style="display: block;border-top:1px solid transparent;">
+                                    <label class="margin-top-5 u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: userDa.toggleAllSelect.bind(userDa), css:{'is-checked': userDa.allSelected()}">
+                                        <input id="checkInput" type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </th>
+                                <th>角色编码</th>
+                                <th>角色名称</th>
+                                <th>创建人</th>
+                                <th>创建时间</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:userJobDa.rows(),as:'row'}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.selectUserJob">
+                                <td name="userCheckbox" class="checkbox1">
+                                    <label class="u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+                                        <input type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </td>
+                                <td data-bind="text: row.ref('rolecode') "></td>
+                                <td data-bind="text: row.ref('rolename')"></td>
+                                <td data-bind="text: row.ref('createuser')"></td>
+                                <td data-bind="text: row.ref('createtime')"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div id="userjob-no-data-tip" class='no-data-tip'>无数据</div>
+                    </div>
+                    <div class ="pagination-par">
+                    	<div id='child_list_pagination' class='u-pagination pagination-sm '></div>
+                    </div>
+                    
+                </div>
+                <!-- end user job  -->
+            </div>
+        </div>
+        <!-- end list -->
+    </div>
+</div>
+
+
+
+
+
